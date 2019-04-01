@@ -15,4 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/news', 'StoryController');
+Route::resource('/stories', 'StoryController');
+
+Route::get('/comment/{id}', 'CommentController@create')->name('comments.create');
+Route::post('/comments', 'CommentController@store')->name('comments.store');

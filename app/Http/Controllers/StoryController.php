@@ -14,7 +14,8 @@ class StoryController extends Controller
      */
     public function index()
     {
-        //
+        $stories = Story::all();
+        return view('stories.index', compact('stories'));
     }
 
     /**
@@ -24,7 +25,7 @@ class StoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('stories.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class StoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $story = new Story;
+        $story->title=$request->title;
+        $story->author=$request->author;
+        $story->body=$request->body;
+        $story->save();
+        return redirect(route('stories.index'));
+
+
     }
 
     /**
@@ -46,7 +54,7 @@ class StoryController extends Controller
      */
     public function show(Story $story)
     {
-        //
+        return view('stories.show', compact('story', 'comments'));
     }
 
     /**
@@ -57,7 +65,7 @@ class StoryController extends Controller
      */
     public function edit(Story $story)
     {
-        //
+        return view('stories.edit', compact('story'));
     }
 
     /**
@@ -69,17 +77,27 @@ class StoryController extends Controller
      */
     public function update(Request $request, Story $story)
     {
-        //
+        $story->title = $request->title;
+        $story->author = $request->author;
+        $story->body = $request->body;
+        $story->save();
+        return redirect(route('stories.index'));
+
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Story  $story
-     * @return \Illuminate\Http\Response
+     * @param Story $story
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
     public function destroy(Story $story)
     {
-        //
+        foreach ($story->comments as $comment){
+            $comment->delete();
+        }
+        $story->delete();
+
+        return redirect(route('stories.index'));
+
     }
 }

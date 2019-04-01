@@ -2,10 +2,22 @@
 
 @section('content')
     <div class="title m-b-md">
-        Laravel
+        {{ $story->title }}
     </div>
-
-    <div class="links">
-        <a href={{ route('news.index') }}>News</a>
-    </div>
+    <p>{{$story->body}}</p>
+    <a href={{route('stories.edit', $story->id)}}>Edit story</a>
+    <form action={{route('stories.destroy', $story)}} method="POST">
+        {{ csrf_field() }}
+        {{ method_field('DELETE') }}
+        <button type="submit">Delete Story</button>
+    </form>
+    <h3>
+        <a href={{ route('comments.create', $story->id) }}>Leave a comment</a>
+    </h3>
+    <h2>Comments:</h2>
+    @foreach($story->comments as $comment)
+        <p>{{$comment->author}} said:</p>
+        <p>{{$comment->body}}</p>
+        <br>
+    @endforeach
 @endsection
