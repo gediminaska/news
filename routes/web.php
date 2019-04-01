@@ -15,7 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/stories', 'StoryController');
+Route::resource('/stories', 'StoryController')->except('show');
+Route::get('/stories/{story}/{sort}','StoryController@show')->name('stories.show');
 
 Route::get('/comment/{id}', 'CommentController@create')->name('comments.create');
 Route::post('/comments', 'CommentController@store')->name('comments.store');

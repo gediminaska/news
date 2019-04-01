@@ -31,15 +31,15 @@ class StoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $story = new Story;
-        $story->title=$request->title;
-        $story->author=$request->author;
-        $story->body=$request->body;
+        $story->title = $request->title;
+        $story->author = $request->author;
+        $story->body = $request->body;
         $story->save();
         return redirect(route('stories.index'));
 
@@ -47,20 +47,19 @@ class StoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Story  $story
-     * @return \Illuminate\Http\Response
+     * @param Story $story
+     * @param $sort
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Story $story)
+    public function show(Story $story, $sort)
     {
-        return view('stories.show', compact('story', 'comments'));
+        return view('stories.show', compact('story', 'sort'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Story  $story
+     * @param  \App\Story $story
      * @return \Illuminate\Http\Response
      */
     public function edit(Story $story)
@@ -71,8 +70,8 @@ class StoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Story  $story
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Story $story
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Story $story)
@@ -92,7 +91,7 @@ class StoryController extends Controller
      */
     public function destroy(Story $story)
     {
-        foreach ($story->comments as $comment){
+        foreach ($story->comments as $comment) {
             $comment->delete();
         }
         $story->delete();

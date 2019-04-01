@@ -20,24 +20,24 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $comment=new Comment;
-        $comment->author=$request->author;
-        $comment->body=$request->body;
-        $comment->story_id=$request->story_id;
+        $comment = new Comment;
+        $comment->author = $request->author;
+        $comment->body = $request->body;
+        $comment->story_id = $request->story_id;
         $comment->save();
-        return redirect(route('stories.show', $request->story_id));
+        return redirect(route('stories.show', [$request->story_id, 'DESC']));
     }
 
     /**
-    /**
+     * /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Comment  $comment
+     * @param  \App\Comment $comment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Comment $comment)

@@ -15,7 +15,12 @@
         <a href={{ route('comments.create', $story->id) }}>Leave a comment</a>
     </h3>
     <h2>Comments:</h2>
-    @foreach($story->comments as $comment)
+    @if($sort=='DESC')
+        <a href={{route('stories.show', [$story, 'ASC'])}}>New first</a>
+    @else
+        <a href={{route('stories.show', [$story, 'DESC'])}}>Old first</a>
+    @endif
+    @foreach($sort=='DESC' ? $story->comments->sortByDesc('created_at') : $story->comments as $comment)
         <p>{{$comment->author}} said:</p>
         <p>{{$comment->body}}</p>
         <br>

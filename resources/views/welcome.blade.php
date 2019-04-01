@@ -6,6 +6,6 @@
     </div>
 
     <div class="links">
-        <a href={{ route('news.index') }}>News</a>
+        <a href={{ route('stories.index') }}>News</a>
     </div>
 @endsection
