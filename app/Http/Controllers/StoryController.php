@@ -37,13 +37,22 @@ class StoryController extends Controller
     public function store(Request $request)
     {
         $story = new Story;
-        $story->title = $request->title;
-        $story->author = $request->author;
-        $story->body = $request->body;
+        $this->collectFields($request, $story);
         $story->save();
         return redirect(route('stories.index'));
 
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $story
+     */
+    public function collectFields(Request $request, $story): void
+    {
+        $story->title = $request->title;
+        $story->author = $request->author;
+        $story->body = $request->body;
     }
 
     /**
@@ -76,9 +85,7 @@ class StoryController extends Controller
      */
     public function update(Request $request, Story $story)
     {
-        $story->title = $request->title;
-        $story->author = $request->author;
-        $story->body = $request->body;
+        $this->collectFields($request, $story);
         $story->save();
         return redirect(route('stories.index'));
 

@@ -16,9 +16,9 @@
     </h3>
     <h2>Comments:</h2>
     @if($sort=='DESC')
-        <a href={{route('stories.show', [$story, 'ASC'])}}>New first</a>
+        <a href={{route('stories.show', [$story, 'ASC'])}}>Old first</a>
     @else
-        <a href={{route('stories.show', [$story, 'DESC'])}}>Old first</a>
+        <a href={{route('stories.show', [$story, 'DESC'])}}>New first</a>
     @endif
     @foreach($sort=='DESC' ? $story->comments->sortByDesc('created_at') : $story->comments as $comment)
         <p>{{$comment->author}} said:</p>

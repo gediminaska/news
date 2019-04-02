@@ -32,16 +32,4 @@ class CommentController extends Controller
         $comment->save();
         return redirect(route('stories.show', [$request->story_id, 'DESC']));
     }
-
-    /**
-     * /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Comment $comment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Comment $comment)
-    {
-        //
-    }
 }

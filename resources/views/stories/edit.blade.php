@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="title m-b-md">
-        Create new story
+        Edit story
     </div>
     <form action={{ route('stories.update', $story) }} method="POST">
         {{ csrf_field() }}
